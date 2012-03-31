@@ -23,6 +23,13 @@ than its Java analog. Despite that it's essentially the same as the Java one, th
 less state management, and the loop/recur form is a lot easier to reason about and be comfortable
 with than a for loop.
 
+For comparison's sake, it took about 20 minutes to hammer out the two iterative-style Clojure
+functions, compared to several hours on C, tracking down off-by-one errors and repeatedly
+refactoring it, and about 30-40 minutes on each version in Java (although that was largely reading
+docs. I don't know Java well). And in the end, the C version works, but occasionally gives me
+negative benchmark times, and the Java version is unreadably verbose. Maybe I'm biased, but I think
+Clojure is the clear winner here.
+
 ### Some results
 
 * I'm on a lastest-gen MBP 15" with the 2.4 GHz i7 and 8G of RAM.

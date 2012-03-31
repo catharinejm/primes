@@ -6,7 +6,7 @@ I started in Clojure, just for kicks. Then I wrote the rough equivalent in C
 to see how it compared in performance. Then I wrote it in Java for great science.
 
 Interestingly the java version using Arrays is faster than the C version, compiled
-without optimizations. C was faster with -O2 though. Clojure is about 1000 times slower
+without optimizations. C was faster with -O2 though, but only barely. Clojure is about 1000 times slower
 than the Java or C implementation... I don't expect it to be as fast, of course, but I'm
 sure there must be some better optimized functions I can use. Of course, the lazy-seq is
 cached, so it only has to calculate the values once.

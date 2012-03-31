@@ -2,31 +2,31 @@
 
 ### That's basically it.
 
-I started in Clojure, just for kicks. Then I wrote the rough equivalent in C to see how it compared
-in performance. Then I wrote it in Java for great science.
+I started in Clojure, as an attempt to better familiarize myself with the Sequence library. Then I
+wrote the rough equivalent in C to see how it compared in performance. Then I wrote it in Java for
+great science.
 
-Interestingly the java version using Arrays is faster than the C version, compiled without
-optimizations. C was faster with -O2 though, but only barely.
+Interestingly the Java version using Arrays is faster than the C version, when compiled without
+optimizations. C was faster with -O2, but only barely.
 
 My initial Clojure implementation is about 1000 times slower than the Java or C implementation... 
-I used the seq library pretty heavily, which while elegant is not really ideal for this kind of
-quick number crunching. Of course, the lazy-seq is cached, so it only has to calculate the values
-once.
+I used the Seq library pretty heavily, which while elegant is not really ideal for this kind of
+quick number crunching. Of course, the lazy-seq is cached, so it only has to calculate values up to
+a given N once.
 
-After the benchmarking, I emulated the C/Java algorithm and the results were much bettter. It's
-slower than the Java implementation using vectors, but much more reasonable. Just for kicks I also
-implemented it using actual Java Arrays. It ended up being nearly the same speed as the iterative
-implementation using Clojure vectors.
+After the initial benchmarking, I emulated the C/Java algorithm in Clojure and the results were much
+bettter. It's still slower, but more reasonable. Just for kicks, I also implemented it using actual
+Java Arrays, but it wasn't significantly different.
 
-It's important to note, however, that the non-seq Clojure implementation was a lot simpler to write
-than its Java analog. Despite that it's essentially the same as the Java one, there was still a lot
-less state management, and the loop/recur form is a lot easier to reason about and be comfortable
-with than a for loop.
+It's important to note, however, that the non-seq Clojure implementation was considerably easier to
+write than its C/Java analog. Despite that it's essentially the same algorithm, there was almost no
+state management to deal with, definitely no pointers or allocations to screw up, and the loop/recur
+form is much simpler to reason about than a for loop.
 
-For comparison's sake, it took about 20 minutes to hammer out the two iterative-style Clojure
-functions, compared to several hours on C, tracking down off-by-one errors and repeatedly
-refactoring it, and about 30-40 minutes on each version in Java (although that was largely reading
-docs. I don't know Java well). And in the end, the C version works, but occasionally gives me
+For comparison's sake, it took me only about 20-30 minutes to hammer out both iterative-style
+Clojure functions, compared to several hours using C, spent tracking down off-by-one errors and
+refactoring, and about 30-40 minutes on each version in Java (although that was largely spent
+reading docs. I don't know Java well). In the end, the C version works, but occasionally gives me
 negative benchmark times, and the Java version is unreadably verbose. Maybe I'm biased, but I think
 Clojure is the clear winner here.
 

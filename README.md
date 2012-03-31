@@ -88,8 +88,8 @@ GCC without optimization:
 ./primes 10000 -p    #=> 1ms
 ./primes 100000 -p   #=> 10ms
 ./primes 1000000 -p  #=> 131ms
-./primes 10000000 -p #=> 2495ms (Note that the internal timing started printing garbage. 
-                     #           I used /usr/bin/time for this)
+./primes 10000000 -p #=> 2495ms (The internal timing started printing garbage, so
+                     #           I used /usr/bin/time to get this)
 ```
 
 GCC with -02:
@@ -98,8 +98,7 @@ GCC with -02:
 ./primes 10000 -p    #=> 0ms
 ./primes 100000 -p   #=> 6ms
 ./primes 1000000 -p  #=> 67ms
-./primes 10000000 -p #=> 1263ms (Note that the internal timing started printing garbage.
-                     #           I used /usr/bin/time for this)
+./primes 10000000 -p #=> 1263ms (/usr/bin/time)
 ```
 
 LLVM (timings were the same with and without optimizations):
@@ -108,6 +107,5 @@ LLVM (timings were the same with and without optimizations):
 ./primes 10000 -p    #=> 0ms
 ./primes 100000 -p   #=> 12ms
 ./primes 1000000 -p  #=> 127ms
-./primes 10000000 -p #=> 2467ms (Note that the internal timing started printing garbage.
-                     #           I used /usr/bin/time for this)
+./primes 10000000 -p #=> 2467ms (/usr/bin/time)
 ```

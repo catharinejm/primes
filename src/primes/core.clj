@@ -52,3 +52,24 @@
           :else
           (recur primes (rest rem-primes) n))))
     []))
+
+(defn java-primes [lim]
+  (loop [primes (int-array (/ lim 10) [2])
+         p-idx 0
+         end-idx 1
+         n 3]
+    (if (= end-idx (alength primes))
+      (let [new-ary (int-array (* (alength primes) 2) primes)]
+        (recur new-ary p-idx end-idx n))
+      (let [p (aget primes p-idx)]
+        (cond
+          (> n lim)
+          primes
+          (> p (/ n p))
+          (do
+            (aset-int primes end-idx n)
+            (recur primes 0 (inc end-idx) (inc n)))
+          (zero? (rem n p))
+          (recur primes 0 end-idx (inc n))
+          :else
+          (recur primes (inc p-idx) end-idx n))))))

@@ -14,7 +14,14 @@ quick number crunching. Of course, the lazy-seq is cached, so it only has to cal
 once.
 
 After the benchmarking, I emulated the C/Java algorithm and the results were much bettter. It's
-slower than the Java implementation using vectors, but much more reasonable.
+slower than the Java implementation using vectors, but much more reasonable. Just for kicks I also
+implemented it using actual Java Arrays. It ended up being nearly the same speed as the iterative
+implementation using Clojure vectors.
+
+It's important to note, however, that the non-seq Clojure implementation was a lot simpler to write
+than its Java analog. Despite that it's essentially the same as the Java one, there was still a lot
+less state management, and the loop/recur form is a lot easier to reason about and be comfortable
+with than a for loop.
 
 ### Some results
 
@@ -39,6 +46,15 @@ Clojure using Vectors and loop/recur:
 (time (print-large-vec (iterative-primes 100000)))   ;=> 274.732ms
 (time (print-large-vec (iterative-primes 1000000)))  ;=> 5254.079ms
 (time (print-large-vec (iterative-primes 10000000))) ;=> 114479.498ms
+```
+
+Clojure using Java arrays:
+
+```clojure
+(time (java-primes 10000))    ;=> 23.119ms
+(time (java-primes 100000))   ;=> 230.103ms
+(time (java-primes 1000000))  ;=> 4789.715ms
+(time (java-primes 10000000)) ;=> 104944.505ms
 ```
 
 Java with Vector:

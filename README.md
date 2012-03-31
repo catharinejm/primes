@@ -2,14 +2,19 @@
 
 ### That's basically it.
 
-I started in Clojure, just for kicks. Then I wrote the rough equivalent in C 
-to see how it compared in performance. Then I wrote it in Java for great science.
+I started in Clojure, just for kicks. Then I wrote the rough equivalent in C to see how it compared
+in performance. Then I wrote it in Java for great science.
 
-Interestingly the java version using Arrays is faster than the C version, compiled
-without optimizations. C was faster with -O2 though, but only barely. Clojure is about 1000 times slower
-than the Java or C implementation... I don't expect it to be as fast, of course, but I'm
-sure there must be some better optimized functions I can use. Of course, the lazy-seq is
-cached, so it only has to calculate the values once.
+Interestingly the java version using Arrays is faster than the C version, compiled without
+optimizations. C was faster with -O2 though, but only barely.
+
+My initial Clojure implementation is about 1000 times slower than the Java or C implementation... 
+I used the seq library pretty heavily, which while elegant is not really ideal for this kind of
+quick number crunching. Of course, the lazy-seq is cached, so it only has to calculate the values
+once.
+
+After the benchmarking, I emulated the C/Java algorithm and the results were much bettter. It's
+slower than the Java implementation using vectors, but much more reasonable.
 
 ### Some results
 
@@ -19,12 +24,21 @@ cached, so it only has to calculate the values once.
 * GCC: 4.2.1, Apple build 
 * LLVM-GCC: 4.2.1, LLVM 2335.15.00
 
-Clojure: (I re-def'd #'primes between each run to kill the memoization)
+Clojure using seq: (I re-def'd #'primes between each run to kill the memoization)
 
 ```clojure
 (time (print-primes 10000))   ;=> 1079.706ms
 (time (print-primes 100000))  ;=> 58769.652
 (time (print-primes 1000000)) ;=> C-c I gave up :-/
+```
+
+Clojure using Vectors and loop/recur:
+
+```clojure
+(time (print-large-vec (iterative-primes 10000)))    ;=> 16.081ms
+(time (print-large-vec (iterative-primes 100000)))   ;=> 274.732ms
+(time (print-large-vec (iterative-primes 1000000)))  ;=> 5254.079ms
+(time (print-large-vec (iterative-primes 10000000))) ;=> 114479.498ms
 ```
 
 Java with Vector:
